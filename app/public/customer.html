@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Inventory Management Program</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/home">Inventory Management Program</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+
+      </ul>
+
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">About</a>
+        </li>
+
+        <li class="nav-item text-nowrap dropdown">
+          <a class="nav-link dropdown-toggle " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign-in</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="/customer">Customer</a>
+            <a class="dropdown-item" href="/manager">Manager</a>
+            <a class="dropdown-item" href="/shipper">Shipper</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron" id="loginSection" style="display:block;">
+    <div class="container">
+      <h2>Customer Member Sign In</h2>
+      <br>
+      <div class="account-number">
+        <p> Enter Account Number
+          <input>
+        </p>
+      </div>
+      <div class="card-id">
+        <p> Enter Access Card ID
+          <input>
+        </p>
+      </div>
+      <button class="btn btn-primary sign-in-member">SIGN IN</button>
+    </div>
+  </div>
+
+
+  <div id="transactionSection" style="display:none;">
+
+
+    <div class="jumbotron" id="headSection" style="display:block;">
+      <div class="container">
+
+        <table>
+          <tr>
+            <td>
+              <div style="padding-right: 20px">
+                <h2>Name:</h2>
+                <h2>Account Number:</h2>
+                <h2>Points:</h2>
+              </div>
+            </td>
+            <td>
+              <div class="heading"> </div>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="container" id="infoSection">
+
+      <div class="text-center">
+        <h5 class="text-center">Checking your shipping status and view your previous transactions</h5>
+        <br>
+      </div>
+      <div class="row">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
+          
+            <ul class="nav nav-tabs" id="transactionsTypeTab" role="tablist">
+              <li class="nav-item ">
+                <a class="nav-link active" id="on-going-transaction-tab" data-toggle="tab" href="#on-going" role="tab" aria-controls="on-going" aria-selected="true">On Going</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" id="previous-delivery-tab" data-toggle="tab" href="#prev-delivery" role="tab" aria-controls="prev-delivery" aria-selected="false">Previous Delivery</a>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="on-going" role="tabpanel" aria-labelledby="on-going-transaction-tab">
+                <br>
+                <h4>On Going Delivery</h4>
+                <br>
+                <div class="on-going-transactions"> </div>
+                <br><br>
+              </div>
+
+              <div class="tab-pane fade " id="prev-delivery" role="tabpanel" aria-labelledby="previous-delivery-tab">
+                <br>
+                <h4>Delivered Transactions</h4>
+                <br>
+                <div class="previous-delivery-transactions"> </div>
+                <br><br>
+              </div>
+
+            </div>
+
+            <hr class="featurette-divider">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container text-center">
+    <br><br>
+    <div class="container text-center">
+      <div class="loader" id="loader" style="display:none;"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="/scripts/customer.js"></script>

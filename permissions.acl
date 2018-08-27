@@ -1,0 +1,159 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Customer to have access only to their own account
+rule CustomerAccessOwnRecord {
+    description: "Allow Customer to access only their profile"
+    participant(p): "com.nimbl3.imp.Customer"
+    operation: ALL
+    resource(r): "com.nimbl3.imp.Customer"
+    condition: (r.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+// Customer NOT to have access to other member accounts
+rule CustomerAccessCustomers {
+    description: "Deny Customer access to other Customers accounts"
+    participant: "com.nimbl3.imp.Customer"
+    operation: ALL
+    resource: "com.nimbl3.imp.Customer"
+    action: DENY
+}
+
+rule CustomerAccessDeliveryItem {
+    description: "Allow Customers read only access to DeliveryItem transaction where they are the partner"
+    participant(p): "com.nimbl3.imp.Shipper"
+    operation: READ
+    resource(r): "com.nimbl3.imp.DeliveryItem"
+    condition: (r.customer.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+// Managers have access to Shipper on the network
+rule ManagerAccessShippers {
+    description: "Allow Manager access to all Customers on the network"
+    participant: "com.nimbl3.imp.Manager"
+    operation: ALL
+    resource: "com.nimbl3.imp.Shipper"
+    action: ALLOW
+}
+
+// Manager to have access only to their own account
+rule ManagerAccessOwnRecord {
+    description: "Allow Partner to access only their profile"
+    participant(p): "com.nimbl3.imp.Manager"
+    operation: ALL
+    resource(r): "com.nimbl3.imp.Manager"
+    condition: (r.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+// Managers Not to have access to other Manager accounts
+rule ManagerAccessManagers {
+    description: "Deny Manager access to other Manager accounts"
+    participant: "com.nimbl3.imp.Manager"
+    operation: ALL
+    resource: "com.nimbl3.imp.Manager"
+    action: DENY
+}
+
+// Shipper to have access only to their own account
+rule ShipperAccessOwnRecord {
+    description: "Allow Shipper to access only their profile"
+    participant(p): "com.nimbl3.imp.Shipper"
+    operation: ALL
+    resource(r): "com.nimbl3.imp.Shipper"
+    condition: (r.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+// Shipper Not to have access to other Manager accounts
+rule ShipperAccessShippers {
+    description: "Deny Shipper access to other Shipper accounts"
+    participant: "com.nimbl3.imp.Shipper"
+    operation: ALL
+    resource: "com.nimbl3.imp.Shipper"
+    action: DENY
+}
+
+// Managers have access to READ, UPDATE Customers on the network
+rule ManagerAccessCustomers {
+    description: "Allow Manager READ, UPDATE to Customers on the network"
+    participant: "com.nimbl3.imp.Manager"
+    operation: READ, UPDATE
+    resource: "com.nimbl3.imp.Customer"
+    action: ALLOW
+}
+
+// Shippers to have READ access to DeliveryItem transaction where they are the partner
+rule ShipperAccessDeliveryItem {
+    description: "Allow Shippers read only access to DeliveryItem transaction where they are the partner"
+    participant(p): "com.nimbl3.imp.Shipper"
+    operation: READ, UPDATE
+    resource(r): "com.nimbl3.imp.DeliveryItem"
+    condition: (r.shipper.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+// Shippers to have READ access to DeliveryItem transaction where they are the partner
+rule ShipperAccessAddItem {
+    description: "Allow Shippers read only access to AddItem transaction where they are the partner"
+    participant(p): "com.nimbl3.imp.Shipper"
+    operation: READ, UPDATE
+    resource(r): "com.nimbl3.imp.AddItem"
+    condition: (r.shipper.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+// Manager to have  access to DeliveryItem transaction
+rule ManagerAccessDeliveryItem {
+    description: "Allow Manager access to DeliveryItem transaction"
+    participant: "com.nimbl3.imp.Manager"
+    operation: ALL
+    resource: "com.nimbl3.imp.DeliveryItem"
+    action: ALLOW
+}
+
+// Manager to have  access to DeliveryItem transaction
+rule ManagerAccessAddItem {
+    description: "Allow Manager access to AddItem transaction"
+    participant: "com.nimbl3.imp.Manager"
+    operation: ALL
+    resource: "com.nimbl3.imp.AddItem"
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "ANY"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

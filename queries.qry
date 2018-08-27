@@ -1,0 +1,30 @@
+query selectCustomers {
+  description: "Select all customers"
+  statement:
+      SELECT com.nimbl3.imp.Customer
+}
+
+query selectManagers {
+  description: "Select all managers"
+  statement:
+      SELECT com.nimbl3.imp.Manager
+}
+
+query selectShippers {
+  description: "Select all shippers"
+  statement:
+      SELECT com.nimbl3.imp.Shipper
+}
+
+query selectDeliveryItem {
+  description: "Select all DeliveryItem transactions"
+  statement:
+      SELECT com.nimbl3.imp.DeliveryItem
+}
+
+query selectAddItem {
+  description: "Select all AddItem transactions"
+  statement:
+      SELECT com.nimbl3.imp.AddItem
+}
+
